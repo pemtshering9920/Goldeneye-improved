@@ -75,7 +75,10 @@ class GoldenEye:
         for os, data in USER_AGENT_PARTS['os'].items():
             for platform, details in USER_AGENT_PARTS['platform'].items():
                 for ua in details['name']:
-                    useragents.append(f"{data['name'][random.randint(0, len(data['name']) - 1)]} {details['details'][0]} {ua} {details['extensions'][random.randint(0, len(details['extensions']) - 1)]}")
+                    # Handle cases where 'details' and 'extensions' keys may be missing
+                    details_part = details.get('details', [''])
+                    extensions_part = details.get('extensions', [''])
+                    useragents.append(f"{data['name'][random.randint(0, len(data['name']) - 1)]} {details_part[0]} {ua} {extensions_part[random.randint(0, len(extensions_part) - 1)]}")
         return useragents
 
     def fire(self):
